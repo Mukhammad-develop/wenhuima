@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Website Admin</title>
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div id="login" class="login hidden">
+  <form id="login-form" class="login-card">
+    <div class="brand">Wenhui Ma <span>· Admin</span></div>
+    <label>Username<input name="username" autocomplete="username" required autofocus></label>
+    <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+    <button type="submit">Log in</button>
+    <p class="login-error" id="login-error"></p>
+  </form>
+</div>
+
+<div id="app" class="app hidden">
+  <aside class="chat">
+    <header class="chat-head">
+      <div class="brand">Wenhui Ma <span>· Admin</span></div>
+      <div class="head-actions">
+        <button id="undo" class="ghost" title="Revert the AI's last change">↶ Undo</button>
+        <button id="new-chat" class="ghost" title="Start a fresh conversation (the website is not changed)">New chat</button>
+        <button id="logout" class="ghost" title="Log out">Log out</button>
+      </div>
+    </header>
+    <div id="messages" class="messages"></div>
+    <form id="composer" class="composer">
+      <div id="attachments" class="attachments"></div>
+      <textarea id="input" rows="3" placeholder="Describe how you want your website to look… (attach or paste images too)"></textarea>
+      <div class="composer-bar">
+        <label class="attach" title="Attach images">
+          <input id="file" type="file" accept="image/*" multiple hidden>＋ Image
+        </label>
+        <select id="model" title="AI model"></select>
+        <button id="send" type="submit">Send</button>
+        <button id="stop" type="button" class="stop hidden">Stop</button>
+      </div>
+    </form>
+  </aside>
+
+  <main class="preview">
+    <div class="preview-bar">
+      <select id="page"></select>
+      <div class="seg">
+        <button id="view-desktop" class="on" title="Desktop view">Desktop</button>
+        <button id="view-phone" title="Phone view">Phone</button>
+      </div>
+      <button id="reload" class="ghost" title="Reload preview">⟳</button>
+      <a id="open" class="ghost btn" target="_blank" title="Open the live website in a new tab">Open site ↗</a>
+    </div>
+    <div class="frame-wrap"><iframe id="frame" title="Website preview"></iframe></div>
+  </main>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

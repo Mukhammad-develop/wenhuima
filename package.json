@@ -1,0 +1,7 @@
+{
+  "name": "wenhuima-portfolio",
+  "private": true,
+  "description": "Wenhui Ma portfolio website with AI admin panel at /admin",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
