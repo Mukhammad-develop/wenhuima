@@ -152,8 +152,12 @@ function cookies(req) {
   }
   return out;
 }
+function reloadSessions() {
+  try { for (const [t, exp] of Object.entries(JSON.parse(fs.readFileSync(SESSIONS_FILE, 'utf8')))) sessions.set(t, exp); } catch { /* none yet */ }
+}
 function authed(req) {
   const t = cookies(req).wm_admin;
+  if (t && !sessions.has(t)) reloadSessions(); // the host may run several copies of this app
   const exp = t && sessions.get(t);
   if (!exp) return false;
   if (exp < Date.now()) { sessions.delete(t); return false; }
@@ -622,6 +626,7 @@ async function handleApi(req, res, route) {
     });
   }
   if (!authed(req)) return sendJSON(res, 401, { error: 'Please log in.' });
+  if (!running) chat = loadChat(); // pick up changes made by another copy of the app
   // reject cross-site POSTs
   if (req.method === 'POST' && req.headers.origin && new URL(req.headers.origin).host !== req.headers.host)
     return sendJSON(res, 403, { error: 'Bad origin' });
